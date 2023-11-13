@@ -1,42 +1,24 @@
-#
-# Contextual output
-#
-
-output "walrus_project_name" {
-  value       = try(local.context["project"]["name"], null)
-  description = "The name of project where deployed in Walrus."
+output "context" {
+  description = "The input context, a map, which is used for orchestration."
+  value       = var.context
 }
 
-output "walrus_project_id" {
-  value       = try(local.context["project"]["id"], null)
-  description = "The id of project where deployed in Walrus."
+output "selector" {
+  description = "The selector, a map, which is used for dependencies or collaborations."
+  value       = local.labels
 }
 
-output "walrus_environment_name" {
-  value       = try(local.context["environment"]["name"], null)
-  description = "The name of environment where deployed in Walrus."
+output "endpoint_internal" {
+  description = "The internal endpoints, a string list, which are used for internal access."
+  value       = [format("%s.%s.svc.%s:9092", local.name, local.namespace, local.domain_suffix)]
 }
 
-output "walrus_environment_id" {
-  value       = try(local.context["environment"]["id"], null)
-  description = "The id of environment where deployed in Walrus."
+output "username" {
+  value       = var.deployment.username
+  description = "The username of kafka service."
 }
 
-output "walrus_resource_name" {
-  value       = try(local.context["resource"]["name"], null)
-  description = "The name of resource where deployed in Walrus."
-}
-
-output "walrus_resource_id" {
-  value       = try(local.context["resource"]["id"], null)
-  description = "The id of resource where deployed in Walrus."
-}
-
-#
-# Submodule output
-#
-
-output "submodule" {
-  value       = module.submodule.message
-  description = "The message from submodule."
+output "password" {
+  value       = local.password
+  description = "The password of kafka service."
 }
