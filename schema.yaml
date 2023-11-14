@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI schema for template terraform-kubernetes-kafka
+components:
+  schemas:
+    variables:
+      required: []
+      type: object
+      properties:
+        context:
+          title: Context
+          type: object
+          description: |
+            Receive contextual information. When Walrus deploys, Walrus will inject specific contextual information into this field.
+
+            Examples:
+            ```
+            context:
+              project:
+                name: string
+                id: string
+              environment:
+                name: string
+                id: string
+              resource:
+                name: string
+                id: string
+            ```
+          default: {}
+          additionalProperties:
+            type: object
+          x-walrus-ui:
+            group: Basic
+            hidden: true
+        infrastructure:
+          title: Infrastructure
+          type: object
+          description: |
+            Specify the infrastructure information for deploying.
+
+            Examples:
+            ```
+            infrastructure:
+              namespace: string, optional
+              image_registry: string, optional
+              domain_suffix: string, optional
+            ```
+          default: {}
+          properties:
+            domain_suffix:
+              title: Domain Suffix
+              type: string
+            image_registry:
+              title: Image Registry
+              type: string
+            namespace:
+              title: Namespace
+              type: string
+          x-walrus-ui:
+            group: Basic
+        engine_version:
+          title: Engine Version
+          type: string
+          description: |
+            Specify the deployment engine version, select from https://hub.docker.com/r/bitnami/kafka/tags.
+          default: "3.6"
+          x-walrus-ui:
+            group: Basic
+        username:
+          title: Username
+          type: string
+          description: |
+            Specify the account username.
+          default: user
+          x-walrus-ui:
+            group: Basic
+        password:
+          title: Password
+          type: string
+          description: |
+            Specify the account password.
+          x-walrus-ui:
+            group: Basic
+        resources:
+          title: Resources
+          type: object
+          description: |
+            Specify the computing resources.
+
+            Examples:
+            ```
+            resources:
+              cpu: number, optional
+              memory: number, optioanl       # in megabyte
+            ```
+          default:
+            cpu: 0.25
+            memory: 256
+          required:
+          - cpu
+          - memory
+          properties:
+            cpu:
+              title: Cpu
+              type: number
+            memory:
+              title: Memory
+              type: number
+          x-walrus-ui:
+            group: Basic
+        storage:
+          title: Storage
+          type: object
+          description: |
+            Specify the storage resources.
+
+            Examples:
+            ```
+            storage:                         # convert to empty_dir volume or dynamic volume claim template
+              class: string, optional
+              size: number, optional         # in megabyte
+            ```
+          properties:
+            class:
+              title: Class
+              type: string
+            size:
+              title: Size
+              type: number
+          x-walrus-ui:
+            group: Basic
+        seeding:
+          title: Seeding
+          type: object
+          description: |
+            Specify the configuration to kafka provisioning.
+
+            Examples:
+            ```
+            seeding:
+                topics: list(string), optional
+                partitions: number, optional
+                replicas: number, optional
+            ```
+          default: {}
+          properties:
+            partitions:
+              title: Partitions
+              type: number
+            replicas:
+              title: Replicas
+              type: number
+            topics:
+              items:
+                type: string
+              title: Topics
+              type: array
+          x-walrus-ui:
+            group: Basic
