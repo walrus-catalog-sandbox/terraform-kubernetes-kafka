@@ -52,56 +52,75 @@ EOF
 # Deployment Fields
 #
 
-variable "deployment" {
+variable "engine_version" {
   description = <<-EOF
-Specify the deployment action, including architecture and account.
+Specify the deployment engine version, select from https://hub.docker.com/r/bitnami/kafka/tags.
+EOF
+  type        = string
+  default     = "3.6"
+}
+
+variable "username" {
+  description = <<-EOF
+Specify the account username.
+EOF
+  type        = string
+  default     = "user"
+  validation {
+    condition     = can(regex("^[A-Za-z_]{0,15}[a-z0-9]$", var.username))
+    error_message = format("Invalid username: %s", var.username)
+  }
+}
+
+variable "password" {
+  description = <<-EOF
+Specify the account password.
+EOF
+  type        = string
+  default     = null
+  validation {
+    condition     = var.password == null || can(regex("^[A-Za-z0-9\\!#\\$%\\^&\\*\\(\\)_\\+\\-=]{8,32}", var.password))
+    error_message = "Invalid password"
+  }
+}
+
+variable "resources" {
+  description = <<-EOF
+Specify the computing resources.
 
 Examples:
 ```
-deployment:
-  version: string, optional      # https://hub.docker.com/r/bitnami/kafka/tags
-  type: string, optional         # i.e. standalone, replication
-  password: string, optional
-  username: string, optional
-  topics: list(string), optional
-  resources: object({
-      requests: object({
-      cpu: number, optional
-      memory: number, optional
-      }), optional
-      limits: object({
-      cpu: number, optional
-      memory: number, optional
-      }), optional
-  }), optional
-  storage: object({
-      class: string, optional
-      size: number, optional
-  }), optional
+resources:
+  cpu: number, optional
+  memory: number, optioanl       # in megabyte
 ```
 EOF
   type = object({
-    version  = optional(string, "3.6.0")
-    username = optional(string, "user1")
-    password = optional(string)
-    topics   = optional(list(string))
-    resources = optional(object({
-      requests = object({
-        cpu    = optional(number, 0.25)
-        memory = optional(number, 256)
-      })
-      limits = optional(object({
-        cpu    = optional(number, 0)
-        memory = optional(number, 0)
-      }))
-    }), { requests = { cpu = 0.25, memory = 256 } })
-    storage = optional(object({
-      class       = optional(string)
-      size        = optional(number, 8 * 1024)
-      access_mode = optional(string, "ReadWriteOnce")
-    }), { size = 8 * 1024 })
+    cpu    = number
+    memory = number
   })
-  default = {}
+  default = {
+    cpu    = 0.25
+    memory = 256
+  }
+}
+
+variable "storage" {
+  description = <<-EOF
+Specify the storage resources.
+
+Examples:
+```
+storage:                         # convert to empty_dir volume or dynamic volume claim template
+  class: string, optional
+  size: number, optional         # in megabyte
+```
+EOF
+  type = object({
+    class = optional(string)
+    size  = optional(number, 20 * 1024)
+  })
+  default = null
 }
 
 #

@@ -14,7 +14,7 @@ output "endpoint_internal" {
 }
 
 output "username" {
-  value       = var.deployment.username
+  value       = var.username
   description = "The username of kafka service."
 }
 
