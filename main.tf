@@ -90,7 +90,7 @@ locals {
       # kafka parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#kafka-parameters
       image = {
         repository = "bitnami/kafka"
-        tag        = coalesce(var.engine_version, "3.6.0")
+        tag        = coalesce(var.engine_version, "3.6")
       }
 
       # kafka SASL parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#kafka-sasl-parameters

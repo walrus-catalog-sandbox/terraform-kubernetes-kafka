@@ -9,16 +9,10 @@ module "kafka" {
   source = "..."
   
   infrastructure = {
-    namespace      = "kafka"
-    image_registry = "registry-1.docker.io"
-    domain_suffix  = "cluster.local"
+    namespace      = "default"
   }
 
-  deployment = {
-    version = "3.6.0"
-    username = "..."
-    password = "..."
-  }
+  engine_version = "3.6"          # https://hub.docker.com/r/bitnami/kafka/tags
 }
 ```
 
