@@ -54,6 +54,7 @@ components:
             domain_suffix:
               description: |
                 Specify the domain name of the Kubernetes cluster.
+              default: cluster.local
               title: Domain Suffix
               type: string
               x-walrus-ui:
@@ -61,6 +62,7 @@ components:
             image_registry:
               description: |
                 Specify the image registry to pull the bitnami/kafka image, default is `registry-1.docker.io`.
+              default: registry-1.docker.io
               title: Image Registry
               type: string
               x-walrus-ui:
@@ -111,7 +113,7 @@ components:
             ```
             resources:
               cpu: number, optional
-              memory: number, optioanl       # in megabyte
+              memory: number, optional       # in megabyte
             ```
           default:
             cpu: 0.25
@@ -195,7 +197,7 @@ components:
             replication_factor:
               description: |
                 Specify the replication factor of the seeding topic.
-              title: Replicas
+              title: Replication Factor
               type: number
               x-walrus-ui:
                 order: 3
