@@ -136,13 +136,13 @@ variable "seeding" {
   seeding:
       topics: list(string), optional
       partitions: number, optional
-      replicas: number, optional
+      replication_factor: number, optional
   ```
   EOF
   type = object({
-    topics     = optional(list(string))
-    partitions = optional(number, 1)
-    replicas   = optional(number, 1)
+    topics             = optional(list(string))
+    partitions         = optional(number, 1)
+    replication_factor = optional(number, 1)
   })
   default = {}
 }

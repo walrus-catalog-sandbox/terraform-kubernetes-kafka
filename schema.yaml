@@ -29,9 +29,13 @@ components:
           default: {}
           additionalProperties:
             type: object
+            x-walrus-ui:
+              colSpan: 12
           x-walrus-ui:
+            colSpan: 12
             group: Basic
             hidden: true
+            order: 1
         infrastructure:
           title: Infrastructure
           type: object
@@ -48,16 +52,29 @@ components:
           default: {}
           properties:
             domain_suffix:
+              description: |
+                Specify the domain name of the Kubernetes cluster.
               title: Domain Suffix
               type: string
+              x-walrus-ui:
+                order: 3
             image_registry:
+              description: |
+                Specify the image registry to pull the bitnami/kafka image, default is `registry-1.docker.io`.
               title: Image Registry
               type: string
+              x-walrus-ui:
+                order: 2
             namespace:
               title: Namespace
               type: string
+              x-walrus-ui:
+                hidden: true
+                order: 1
           x-walrus-ui:
+            colSpan: 12
             group: Basic
+            order: 2
         engine_version:
           title: Engine Version
           type: string
@@ -66,6 +83,7 @@ components:
           default: "3.6"
           x-walrus-ui:
             group: Basic
+            order: 3
         username:
           title: Username
           type: string
@@ -74,13 +92,15 @@ components:
           default: user
           x-walrus-ui:
             group: Basic
+            order: 4
         password:
           title: Password
           type: string
           description: |
-            Specify the account password.
+            Specify the account password. If not specified, it will generate a random password.
           x-walrus-ui:
             group: Basic
+            order: 5
         resources:
           title: Resources
           type: object
@@ -101,13 +121,23 @@ components:
           - memory
           properties:
             cpu:
-              title: Cpu
+              description: |
+                Specify the cpu resources. Unit is core.
+              title: Cpu(Core)
               type: number
+              x-walrus-ui:
+                order: 1
             memory:
-              title: Memory
+              description: |
+                Specify the memory resources. Unit is megabyte.
+              title: Memory(MiB)
               type: number
+              x-walrus-ui:
+                order: 2
           x-walrus-ui:
+            colSpan: 12
             group: Basic
+            order: 6
         storage:
           title: Storage
           type: object
@@ -122,13 +152,24 @@ components:
             ```
           properties:
             class:
+              description: |
+                Specify the storage class. If not specified, it will use the default provisioner.
               title: Class
               type: string
+              x-walrus-ui:
+                order: 1
             size:
-              title: Size
+              description: |
+                Specify the storage size. Unit is megabyte.
+              default: 20480
+              title: Size(MiB)
               type: number
+              x-walrus-ui:
+                order: 2
           x-walrus-ui:
+            colSpan: 12
             group: Basic
+            order: 7
         seeding:
           title: Seeding
           type: object
@@ -140,20 +181,35 @@ components:
             seeding:
                 topics: list(string), optional
                 partitions: number, optional
-                replicas: number, optional
+                replication_factor: number, optional
             ```
           default: {}
           properties:
             partitions:
+              description: |
+                Specify the parition number of the seeding topic.
               title: Partitions
               type: number
-            replicas:
+              x-walrus-ui:
+                order: 2
+            replication_factor:
+              description: |
+                Specify the replication factor of the seeding topic.
               title: Replicas
               type: number
+              x-walrus-ui:
+                order: 3
             topics:
+              description: |
+                Specify the seeding topics.
               items:
                 type: string
               title: Topics
               type: array
+              x-walrus-ui:
+                colSpan: 12
+                order: 1
           x-walrus-ui:
+            colSpan: 12
             group: Basic
+            order: 8

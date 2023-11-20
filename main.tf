@@ -108,7 +108,7 @@ locals {
           for topic in var.seeding.topics : {
             name              = topic
             partitions        = var.seeding.partitions
-            replicationFactor = var.seeding.replicas
+            replicationFactor = var.seeding.replication_factor
             config = {
               "max.message.bytes" = 64000
               "flush.messages"    = 1
