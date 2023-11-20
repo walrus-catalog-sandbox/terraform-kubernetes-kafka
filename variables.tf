@@ -96,8 +96,8 @@ resources:
 ```
 EOF
   type = object({
-    cpu    = number
-    memory = number
+    cpu    = optional(number, 0.25)
+    memory = optional(number, 256)
   })
   default = {
     cpu    = 0.25
