@@ -188,14 +188,14 @@ components:
           properties:
             partitions:
               description: |
-                Specify the parition number of the seeding topic.
+                Specify the parition number of the seeding topic. If not specified, it will use the default value `1`.
               title: Partitions
               type: number
               x-walrus-ui:
                 order: 2
             replication_factor:
               description: |
-                Specify the replication factor of the seeding topic.
+                Specify the replication factor of the seeding topic. If not specified, it will use the default value `1`.
               title: Replication Factor
               type: number
               x-walrus-ui:
