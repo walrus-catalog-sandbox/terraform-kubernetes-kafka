@@ -65,8 +65,16 @@ output "context" {
   value = module.this.context
 }
 
-output "endpoint_internal" {
-  value = module.this.endpoint_internal
+output "refer" {
+  value = nonsensitive(module.this.refer)
+}
+
+output "connection" {
+  value = module.this.connection
+}
+
+output "connection_without_port" {
+  value = module.this.connection_without_port
 }
 
 output "username" {
@@ -75,4 +83,8 @@ output "username" {
 
 output "password" {
   value = nonsensitive(module.this.password)
+}
+
+output "endpoints" {
+  value = module.this.endpoints
 }
