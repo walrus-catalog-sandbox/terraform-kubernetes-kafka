@@ -12,20 +12,6 @@ components:
           type: object
           description: |
             Receive contextual information. When Walrus deploys, Walrus will inject specific contextual information into this field.
-
-            Examples:
-            ```
-            context:
-              project:
-                name: string
-                id: string
-              environment:
-                name: string
-                id: string
-              resource:
-                name: string
-                id: string
-            ```
           default: {}
           additionalProperties:
             type: object
@@ -33,7 +19,7 @@ components:
               colSpan: 12
           x-walrus-ui:
             colSpan: 12
-            group: Basic
+            group: Advanced
             hidden: true
             order: 1
         infrastructure:
@@ -41,14 +27,6 @@ components:
           type: object
           description: |
             Specify the infrastructure information for deploying.
-
-            Examples:
-            ```
-            infrastructure:
-              namespace: string, optional
-              image_registry: string, optional
-              domain_suffix: string, optional
-            ```
           default: {}
           properties:
             domain_suffix:
@@ -75,7 +53,7 @@ components:
                 order: 1
           x-walrus-ui:
             colSpan: 12
-            group: Basic
+            group: Advanced
             order: 2
         engine_version:
           title: Engine Version
@@ -90,7 +68,9 @@ components:
           title: Username
           type: string
           description: |
-            Specify the account username.
+            Specify the account username. The username must be 2-16 characters long and start with lower letter, combined with number, or symbol: _.
+          maxLength: 16
+          minLength: 2
           default: user
           x-walrus-ui:
             group: Basic
@@ -99,7 +79,10 @@ components:
           title: Password
           type: string
           description: |
-            Specify the account password. If not specified, it will generate a random password.
+            Specify the account password. The password must be 8-32 characters long and start with any letter, number, or symbols: ! # $ % ^ & * ( ) _ + - =.
+            If not specified, it will generate a random password.
+          maxLength: 32
+          minLength: 8
           x-walrus-ui:
             group: Basic
             order: 5
@@ -108,13 +91,6 @@ components:
           type: object
           description: |
             Specify the computing resources.
-
-            Examples:
-            ```
-            resources:
-              cpu: number, optional
-              memory: number, optional       # in megabyte
-            ```
           default:
             cpu: 0.25
             memory: 256
@@ -144,13 +120,6 @@ components:
           type: object
           description: |
             Specify the storage resources.
-
-            Examples:
-            ```
-            storage:                         # convert to empty_dir volume or dynamic volume claim template
-              class: string, optional
-              size: number, optional         # in megabyte
-            ```
           properties:
             class:
               description: |
@@ -176,14 +145,6 @@ components:
           type: object
           description: |
             Specify the configuration to kafka provisioning.
-
-            Examples:
-            ```
-            seeding:
-                topics: list(string), optional
-                partitions: number, optional
-                replication_factor: number, optional
-            ```
           default: {}
           properties:
             partitions:
@@ -214,3 +175,7 @@ components:
             colSpan: 12
             group: Basic
             order: 8
+      x-walrus-ui:
+        groupOrder:
+          - Basic
+          - Advanced

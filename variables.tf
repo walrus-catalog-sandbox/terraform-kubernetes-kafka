@@ -62,19 +62,20 @@ EOF
 
 variable "username" {
   description = <<-EOF
-Specify the account username.
+Specify the account username. The username must be 2-16 characters long and start with lower letter, combined with number, or symbol: _.
 EOF
   type        = string
   default     = "user"
   validation {
-    condition     = can(regex("^[A-Za-z_]{0,15}[a-z0-9]$", var.username))
+    condition     = can(regex("^[a-z][a-z0-9_]{0,14}[a-z0-9]$", var.username))
     error_message = format("Invalid username: %s", var.username)
   }
 }
 
 variable "password" {
   description = <<-EOF
-Specify the account password.
+Specify the account password. The password must be 8-32 characters long and start with any letter, number, or symbols: ! # $ % ^ & * ( ) _ + - =.
+If not specified, it will generate a random password.
 EOF
   type        = string
   default     = null
