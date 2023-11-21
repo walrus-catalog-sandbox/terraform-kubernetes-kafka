@@ -5,9 +5,9 @@ locals {
     format("%s.%s.svc.%s", local.name, local.namespace, local.domain_suffix)
   ]
 
-  endpoints = flatten([
+  endpoints = [
     for c in local.hosts : format("%s:%d", c, local.port)
-  ])
+  ]
 }
 
 #
