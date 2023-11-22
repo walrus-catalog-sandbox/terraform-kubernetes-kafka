@@ -29,7 +29,7 @@ output "refer" {
       hosts     = local.hosts
       port      = local.port
       endpoints = local.endpoints
-      username  = var.username
+      username  = local.username
       password  = nonsensitive(local.password)
     }
   }
@@ -56,11 +56,11 @@ output "port" {
 
 output "username" {
   description = "The username of the account to access the service."
-  value       = var.username
+  value       = local.username
 }
 
 output "password" {
-  value       = var.password
+  value       = local.password
   description = "The password of the account to access the service."
   sensitive   = true
 }

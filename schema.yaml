@@ -81,6 +81,8 @@ components:
           description: |
             Specify the account password. The password must be 8-32 characters long and start with any letter, number, or symbols: ! # $ % ^ & * ( ) _ + - =.
             If not specified, it will generate a random password.
+          format: password
+          writeOnly: true
           maxLength: 32
           minLength: 8
           x-walrus-ui:
@@ -145,7 +147,6 @@ components:
           type: object
           description: |
             Specify the configuration to kafka provisioning.
-          default: {}
           properties:
             partitions:
               description: |

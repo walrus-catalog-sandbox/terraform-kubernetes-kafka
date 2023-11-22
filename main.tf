@@ -49,6 +49,7 @@ resource "random_string" "name_suffix" {
 
 locals {
   name     = join("-", [local.resource_name, random_string.name_suffix.result])
+  username = coalesce(var.username, "user")
   password = coalesce(var.password, random_password.password.result)
 }
 
@@ -96,7 +97,7 @@ locals {
       # kafka SASL parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#kafka-sasl-parameters
       sasl = {
         client = {
-          users     = [coalesce(var.username, "user")]
+          users     = [local.username]
           passwords = [local.password]
         }
       }
