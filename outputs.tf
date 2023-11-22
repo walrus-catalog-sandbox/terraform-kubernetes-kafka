@@ -25,11 +25,12 @@ output "refer" {
   value = {
     schema = "k8s:kafka"
     params = {
-      selector = local.labels
-      hosts    = local.hosts
-      port     = local.port
-      username = var.username
-      password = nonsensitive(local.password)
+      selector  = local.labels
+      hosts     = local.hosts
+      port      = local.port
+      endpoints = local.endpoints
+      username  = var.username
+      password  = nonsensitive(local.password)
     }
   }
 }
@@ -43,9 +44,14 @@ output "connection" {
   value       = join(",", local.endpoints)
 }
 
-output "connection_without_port" {
-  description = "The connection without port, a string combined host, might be a comma separated string or a single string."
+output "address" {
+  description = "The address, a string only has host, might be a comma separated string or a single string."
   value       = join(",", local.hosts)
+}
+
+output "port" {
+  description = "The port of the service."
+  value       = local.port
 }
 
 output "username" {

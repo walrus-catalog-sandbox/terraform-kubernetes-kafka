@@ -72,7 +72,8 @@ No modules.
 | <a name="output_context"></a> [context](#output\_context) | The input context, a map, which is used for orchestration. |
 | <a name="output_refer"></a> [refer](#output\_refer) | The refer, a map, including hosts, ports and account, which is used for dependencies or collaborations. |
 | <a name="output_connection"></a> [connection](#output\_connection) | The connection, a string combined host and port, might be a comma separated string or a single string. |
-| <a name="output_connection_without_port"></a> [connection\_without\_port](#output\_connection\_without\_port) | The connection without port, a string combined host, might be a comma separated string or a single string. |
+| <a name="output_address"></a> [address](#output\_address) | The address, a string only has host, might be a comma separated string or a single string. |
+| <a name="output_port"></a> [port](#output\_port) | The port of the service. |
 | <a name="output_username"></a> [username](#output\_username) | The username of the account to access the service. |
 | <a name="output_password"></a> [password](#output\_password) | The password of the account to access the service. |
 | <a name="output_endpoints"></a> [endpoints](#output\_endpoints) | The endpoints, a list of string combined host and port. |
