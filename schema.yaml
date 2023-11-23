@@ -4,7 +4,8 @@ info:
 components:
   schemas:
     variables:
-      required: []
+      required: 
+      - engine_version
       type: object
       properties:
         context:
@@ -13,6 +14,7 @@ components:
           description: |
             Receive contextual information. When Walrus deploys, Walrus will inject specific contextual information into this field.
           default: {}
+          nullable: true
           additionalProperties:
             type: object
             x-walrus-ui:
@@ -28,11 +30,13 @@ components:
           description: |
             Specify the infrastructure information for deploying.
           default: {}
+          nullable: true
           properties:
             domain_suffix:
               description: |
                 Specify the domain name of the Kubernetes cluster.
               default: cluster.local
+              nullable: true
               title: Domain Suffix
               type: string
               x-walrus-ui:
@@ -41,6 +45,7 @@ components:
               description: |
                 Specify the image registry to pull the bitnami/kafka image, default is `registry-1.docker.io`.
               default: registry-1.docker.io
+              nullable: true
               title: Image Registry
               type: string
               x-walrus-ui:
@@ -48,6 +53,7 @@ components:
             namespace:
               title: Namespace
               type: string
+              nullable: true
               x-walrus-ui:
                 hidden: true
                 order: 1
@@ -69,9 +75,10 @@ components:
           type: string
           description: |
             Specify the account username. The username must be 2-16 characters long and start with lower letter, combined with number, or symbol: _.
+          default: user
+          nullable: true
           maxLength: 16
           minLength: 2
-          default: user
           x-walrus-ui:
             group: Basic
             order: 4
@@ -81,6 +88,7 @@ components:
           description: |
             Specify the account password. The password must be 8-32 characters long and start with any letter, number, or symbols: ! # $ % ^ & * ( ) _ + - =.
             If not specified, it will generate a random password.
+          nullable: true
           format: password
           writeOnly: true
           maxLength: 32
@@ -96,11 +104,14 @@ components:
           default:
             cpu: 0.25
             memory: 256
+          nullable: true
           properties:
             cpu:
               description: |
                 Specify the cpu resources. Unit is core.
               default: 0.25
+              minimum: 0.1
+              nullable: true
               title: Cpu(Core)
               type: number
               x-walrus-ui:
@@ -109,6 +120,8 @@ components:
               description: |
                 Specify the memory resources. Unit is megabyte.
               default: 256
+              minimum: 128
+              nullable: true
               title: Memory(MiB)
               type: number
               x-walrus-ui:
@@ -122,18 +135,22 @@ components:
           type: object
           description: |
             Specify the storage resources.
+          nullable: true
           properties:
             class:
               description: |
                 Specify the storage class. If not specified, it will use the default provisioner.
               title: Class
               type: string
+              nullable: true
               x-walrus-ui:
                 order: 1
             size:
               description: |
                 Specify the storage size. Unit is megabyte.
               default: 20480
+              minimum: 1024
+              nullable: true
               title: Size(MiB)
               type: number
               x-walrus-ui:
@@ -147,17 +164,24 @@ components:
           type: object
           description: |
             Specify the configuration to kafka provisioning.
+          nullable: true
           properties:
             partitions:
               description: |
-                Specify the parition number of the seeding topic. If not specified, it will use the default value `1`.
+                Specify the parition number of the seeding topic.
+              default: 1
+              minimum: 1
+              nullable: true
               title: Partitions
               type: number
               x-walrus-ui:
                 order: 2
             replication_factor:
               description: |
-                Specify the replication factor of the seeding topic. If not specified, it will use the default value `1`.
+                Specify the replication factor of the seeding topic.
+              default: 1
+              minimum: 1
+              nullable: true
               title: Replication Factor
               type: number
               x-walrus-ui:
@@ -165,6 +189,7 @@ components:
             topics:
               description: |
                 Specify the seeding topics.
+              nullable: true
               items:
                 type: string
               title: Topics
