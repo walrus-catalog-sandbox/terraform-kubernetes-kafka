@@ -74,6 +74,19 @@ locals {
     size         = try(format("%dMi", var.storage.size), "20480Mi")
   }
 
+  seeding_topics = try(var.seeding.topics != null, false) ? [
+    for t in var.seeding.topics : {
+      name              = t
+      partitions        = var.seeding.partitions
+      replicationFactor = var.seeding.replication_factor
+      config = {
+        "max.message.bytes" = 64000
+        "flush.messages"    = 1
+      }
+    }
+    if try(t != null && t != "", false)
+  ] : []
+
   values = [
     # basic configuration.
 
@@ -104,24 +117,13 @@ locals {
 
       # kafka provisioning parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#kafka-provisioning-parameters
       provisioning = {
-        enabled = try(var.seeding.topics != null, false)
-        topics = try(var.seeding.topics != null, false) ? [
-          for topic in var.seeding.topics : {
-            name              = topic
-            partitions        = var.seeding.partitions
-            replicationFactor = var.seeding.replication_factor
-            config = {
-              "max.message.bytes" = 64000
-              "flush.messages"    = 1
-            }
-          }
-        ] : null
+        enabled = length(local.seeding_topics) > 0
+        topics  = length(local.seeding_topics) > 0 ? local.seeding_topics : null
       }
 
       # kafka controller-eligible statefulset parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#controller-eligible-statefulset-parameters
       controller = {
-        resources = local.resources
-
+        resources   = local.resources
         persistence = local.persistence
       }
     },
