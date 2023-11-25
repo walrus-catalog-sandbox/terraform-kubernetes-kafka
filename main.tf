@@ -74,6 +74,9 @@ locals {
     accessModes  = ["ReadWriteOnce"]
     size         = try(format("%dMi", var.storage.size), "20480Mi")
   }
+  service = {
+    type = try(coalesce(var.infrastructure.service_type, "NodePort"), "NodePort")
+  }
 
   seeding_topics = try(var.seeding.topics != null, false) ? [
     for t in var.seeding.topics : {
@@ -127,6 +130,9 @@ locals {
         resources   = local.resources
         persistence = local.persistence
       }
+
+      # kafka traffic exposure parameters: https://github.com/bitnami/charts/tree/main/bitnami/kafka#traffic-exposure-parameters
+      service = local.service
     },
   ]
 }
