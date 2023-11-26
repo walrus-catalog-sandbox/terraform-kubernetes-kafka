@@ -32,7 +32,7 @@ locals {
 # create a random password for blank password input.
 
 resource "random_password" "password" {
-  length      = 10
+  length      = 16
   lower       = true
   special     = false
   min_lower   = 3
