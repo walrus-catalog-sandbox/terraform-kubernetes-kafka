@@ -92,4 +92,7 @@ seal::log::info "+++ GENERATE +++"
 
 generate "$@"
 
+# fetch chart from https://hub.docker.com/r/bitnamicharts/kafka/tags.
+seal::helm::pull oci://registry-1.docker.io/bitnamicharts/kafka:26.4.0 "${ROOT_DIR}/charts"
+
 seal::log::info "--- GENERATE ---"

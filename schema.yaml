@@ -5,8 +5,6 @@ components:
   schemas:
     variables:
       type: object
-      required:
-      - engine_version
       properties:
         context:
           title: Context
