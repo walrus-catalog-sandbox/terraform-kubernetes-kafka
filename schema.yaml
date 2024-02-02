@@ -12,13 +12,11 @@ components:
           description: |
             Specify the infrastructure information for deploying.
           default: {}
-          nullable: true
           properties:
             domain_suffix:
               default: cluster.local
               description: |
                 Specify the domain name of the Kubernetes cluster.
-              nullable: true
               title: Domain Suffix
               type: string
               x-walrus-ui:
@@ -27,13 +25,11 @@ components:
               default: registry-1.docker.io
               description: |
                 Specify the image registry to pull the bitnami/kafka image, default is `registry-1.docker.io`.
-              nullable: true
               title: Image Registry
               type: string
               x-walrus-ui:
                 order: 2
             namespace:
-              nullable: true
               title: Namespace
               type: string
               x-walrus-ui:
@@ -47,7 +43,6 @@ components:
               - NodePort
               - LoadBalancer
               - ClusterIP
-              nullable: true
               title: Service Type
               type: string
               x-walrus-ui:
@@ -62,7 +57,6 @@ components:
           description: |
             Specify the deployment engine version, select from https://hub.docker.com/r/bitnami/kafka/tags.
           default: "3.6"
-          nullable: true
           x-walrus-ui:
             group: Basic
             order: 3
@@ -72,7 +66,6 @@ components:
           description: |
             Specify the account username. The username must be 2-16 characters long and start with lower letter, combined with number, or symbol: _.
           default: user
-          nullable: true
           minLength: 2
           maxLength: 16
           x-walrus-ui:
@@ -85,7 +78,6 @@ components:
             Specify the account password. The password must be 8-32 characters long and start with any letter, number, or symbols: ! # $ % ^ & * ( ) _ + - =.
             If not specified, it will generate a random password.
           format: password
-          nullable: true
           writeOnly: true
           minLength: 8
           maxLength: 32
@@ -100,14 +92,12 @@ components:
           default:
             cpu: 0.25
             memory: 1024
-          nullable: true
           properties:
             cpu:
               default: 0.25
               description: |
                 Specify the cpu resources. Unit is core.
               minimum: 0.1
-              nullable: true
               title: Cpu(Core)
               type: number
               x-walrus-ui:
@@ -117,7 +107,6 @@ components:
               description: |
                 Specify the memory resources. Unit is megabyte.
               minimum: 512
-              nullable: true
               title: Memory(MiB)
               type: number
               x-walrus-ui:
@@ -131,12 +120,10 @@ components:
           type: object
           description: |
             Specify the storage resources.
-          nullable: true
           properties:
             class:
               description: |
                 Specify the storage class. If not specified, it will use the default provisioner.
-              nullable: true
               title: Class
               type: string
               x-walrus-ui:
@@ -146,7 +133,6 @@ components:
               description: |
                 Specify the storage size. Unit is megabyte.
               minimum: 1024
-              nullable: true
               title: Size(MiB)
               type: number
               x-walrus-ui:
@@ -160,14 +146,12 @@ components:
           type: object
           description: |
             Specify the configuration to kafka provisioning.
-          nullable: true
           properties:
             partitions:
               default: 1
               description: |
                 Specify the parition number of the seeding topic.
               minimum: 1
-              nullable: true
               title: Partitions
               type: number
               x-walrus-ui:
@@ -177,7 +161,6 @@ components:
               description: |
                 Specify the replication factor of the seeding topic.
               minimum: 1
-              nullable: true
               title: Replication Factor
               type: number
               x-walrus-ui:
@@ -187,7 +170,6 @@ components:
                 Specify the seeding topics.
               items:
                 type: string
-              nullable: true
               title: Topics
               type: array
               x-walrus-ui:
